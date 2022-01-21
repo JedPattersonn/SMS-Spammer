@@ -7,25 +7,41 @@ import (
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
-func test() {
-	accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	authToken := "your_auth_token"
+func main() {
 
-	client := twilio.NewRestClientWithParams(twilio.RestClientParams{
-		Username: accountSid,
-		Password: authToken,
-	})
+	fmt.Println("Enter the number you would like to spam (inlcude country code): ")
+	var sendNumber string
+	fmt.Scanln(&sendNumber)
+	fmt.Println("Enter the message in the text: ")
+    var messageBody string
+    fmt.Scanln(&messageBody)
+	fmt.Println("How many times would you like the message to send: ")
+	var reps int
+	fmt.Scanln(&reps)
 
-	params := &openapi.CreateMessageParams{}
-	params.SetTo("+15558675309")
-	params.SetFrom("+15017250604")
-	params.SetBody("Hello from Go!")
+    sms(sendNumber, reps, messageBody)
+}
 
-	resp, err := client.ApiV2010.CreateMessage(params)
-	if err != nil {
-		fmt.Println(err.Error())
-		err = nil
-	} else {
-		fmt.Println("Message Sid: " + *resp.Sid)
-	}
+func sms(sendNumber string, reps int, messageBody string) {
+    for i := 0; i < reps; i++ {
+		accountSid := "" //Add acount SID
+		authToken := "" //Ad auth token
+		client := twilio.NewRestClientWithParams(twilio.RestClientParams{
+			Username: accountSid,
+			Password: authToken,
+		})
+
+		params := &openapi.CreateMessageParams{}
+		params.SetTo(sendNumber) //Input number to send to with country code
+		params.SetFrom("+") //Input Twilio number
+		params.SetBody(messageBody) //Input message body
+
+		resp, err := client.ApiV2010.CreateMessage(params)
+		if err != nil {
+			fmt.Println(err.Error())
+			err = nil
+		} else {
+			fmt.Println("Send with message ID: " + *resp.Sid)
+		}
+    }
 }
