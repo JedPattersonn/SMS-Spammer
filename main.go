@@ -13,8 +13,8 @@ func main() {
 	var sendNumber string
 	fmt.Scanln(&sendNumber)
 	fmt.Println("Enter the message in the text: ")
-    var messageBody string
-    fmt.Scanln(&messageBody)
+	var messageBody string
+    	fmt.Scanln(&messageBody)
 	fmt.Println("How many times would you like the message to send: ")
 	var reps int
 	fmt.Scanln(&reps)
