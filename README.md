@@ -1,6 +1,8 @@
 # SMS-Spammer
 SMS spammer written in Go using Twilio
 
+My first Go project I decided to write in my A-Level computer science class so please don't bully me x
+
 ## Prerequisites
 
 - [ ] Go
